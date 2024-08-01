@@ -1,6 +1,10 @@
 # Fleet Sync
 A simple and lightweight FiveM script which provides syncing of light paterns for vehicles when near eachother
 
+### Demos
+- [Dev Demo #1](https://youtu.be/SwDnYTGDuLE)
+- [Dev Demo #2](https://youtu.be/WzOIwjFEgms)
+
 ### Dependencies
 - [DevJacob_CommonLib](https://github.com/DevJacob-Studios/DevJacob_CommonLib)
 - [DevJacob_CallbackManager](https://github.com/DevJacob-Studios/DevJacob_CallbackManager)
