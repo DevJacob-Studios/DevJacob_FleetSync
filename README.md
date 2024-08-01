@@ -4,6 +4,7 @@ A simple and lightweight FiveM script which provides syncing of light paterns fo
 ### Demos
 - [Dev Demo #1](https://youtu.be/SwDnYTGDuLE)
 - [Dev Demo #2](https://youtu.be/WzOIwjFEgms)
+- [Dev Demo #3](https://youtu.be/4A8z0bZboH4)
 
 ### Dependencies
 - [DevJacob_CommonLib](https://github.com/DevJacob-Studios/DevJacob_CommonLib)
