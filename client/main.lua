@@ -65,6 +65,7 @@ Citizen.CreateThread(function()
         Citizen.Wait(500)
         local playerPed = PlayerPedId()
         local vehicle = GetVehiclePedIsIn(playerPed, false)
+        if vehicle == 0 then vehicle = nil end
 
         if canSync == false or syncedEntity ~= vehicle then
             if vehicle == nil then
@@ -188,7 +189,6 @@ Citizen.CreateThread(function()
     end
 end)
 
-
 RegisterNetEvent("DevJacob:FleetSync:Client:SyncVehicleNow", function(vehicleNetId, commanderNetId)
     DevJacobLib.Logger.Debug("Syncing to: " .. vehicleNetId)
     if not NetworkDoesEntityExistWithNetworkId(vehicleNetId) and not NetworkDoesEntityExistWithNetworkId(commanderNetId) then
@@ -203,15 +203,25 @@ RegisterNetEvent("DevJacob:FleetSync:Client:SyncVehicleNow", function(vehicleNet
         return
     end
 
-    local fleetName, fleetData = GetModelHashFleet(GetEntityModel(commanderHandle))
+    local commanderModel = GetEntityModel(commanderHandle)
+    local fleetName, fleetData = GetModelHashFleet(commanderModel)
+    local commanderExtraMap = GetLightingExtrasForModelHash(commanderModel, fleetData)
+    local myExtraMap = GetLightingExtrasForModelHash(GetEntityModel(vehicleHandle), fleetData)
 
     -- If we mimic extras, do so now
     if fleetData.copyExtras == true and fleetData.lightingExtras then
-        for i = 1, #fleetData.lightingExtras do
-            local extra = fleetData.lightingExtras[i]
-            if DoesExtraExist(commanderHandle, extra) then
-                SetVehicleExtra(vehicleHandle, extra, not IsVehicleExtraTurnedOn(commanderHandle, extra))
+        for lightingName, commanderExtra in pairs(commanderExtraMap) do
+            local myExtra = myExtraMap[lightingName]
+
+            if myExtra == nil then
+                goto continue
             end
+
+            if DoesExtraExist(commanderHandle, commanderExtra) and DoesExtraExist(vehicleHandle, myExtra) then
+                SetVehicleExtra(vehicleHandle, myExtra, not IsVehicleExtraTurnedOn(commanderHandle, commanderExtra))
+            end
+
+            ::continue::
         end
     end
 

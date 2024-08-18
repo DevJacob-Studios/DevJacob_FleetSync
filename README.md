@@ -15,7 +15,7 @@ Installing the resource is simple, just download the latest version from the [re
 Remember to also download and install all of the dependencies!
 
 ### Configuration
-TBD
+All of the configuration and documentation for it can be found in the [config.lua](./config.lua) file.
 
 # License
 This project uses the **Mozilla Public License 2.0**
